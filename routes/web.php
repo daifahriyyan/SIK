@@ -7,12 +7,19 @@ use App\Http\Controllers\UserController;
 use App\Models\Clas;
 use App\Models\Student;
 use App\Models\Teacher;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/auth', [UserController::class, 'index'])->name('login');
 Route::post('/signin', [UserController::class, 'authenticate']);
 Route::post('/signup', [UserController::class, 'store']);
 Route::delete('/logout', [UserController::class, 'logout'])->name('logout');
+
+Route::get('/', function(){
+    return inertia('Home', [
+        'user' => Auth::user()
+    ]);
+})->middleware('auth')->name('home');
 
 Route::get('/dashboard', function () {
     return inertia('Dashboard', [

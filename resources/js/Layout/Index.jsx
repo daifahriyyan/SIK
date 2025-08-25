@@ -10,9 +10,9 @@ const Layout = ({ children }) => {
     <div className="min-h-screen bg-gray-100">
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <h1 className="text-xl font-bold text-gray-900">
+          <Link href="/" className="text-xl font-bold text-blue-600">
             SIK (Sistem Informasi Kelas)
-          </h1>
+          </Link>
           {/* Menu */}
           <button
             className="md:hidden p-2 rounded focus:outline-none"
@@ -23,6 +23,11 @@ const Layout = ({ children }) => {
           {/* Desktop menu */}
           <nav className="hidden md:block">
             <ul className="inline-block space-x-4">
+              <li className="inline">
+                <Link href="/" className="text-gray-600 hover:text-gray-900">
+                  Home
+                </Link>
+              </li>
               <li className="inline">
                 <Link href="/dashboard" className="text-gray-600 hover:text-gray-900">
                   Dashboard
@@ -46,6 +51,11 @@ const Layout = ({ children }) => {
           <div className="md:hidden px-4 pb-4">
             <nav>
               <ul className="space-y-2">
+                <li>
+                  <Link href="/" className="block text-gray-600 hover:text-gray-900">
+                    Home
+                  </Link>
+                </li>
                 <li>
                   <Link href="/dashboard" className="block text-gray-600 hover:text-gray-900">
                     Dashboard
