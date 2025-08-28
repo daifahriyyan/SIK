@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\ClasController;
+use App\Http\Controllers\OrangTuaController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
 use App\Models\Clas;
+use App\Models\OrangTua;
 use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Support\Facades\Auth;
@@ -31,9 +33,12 @@ Route::get('/manage', function () {
     return inertia('Manage', [
             'classes' => Clas::all(),
             'teachers' => Teacher::with('clas')->get(),
-            'students' => Student::with('clas')->get(),
+            'students' => Student::with('clas', 'orangTua')->get(),
+            'parents' => OrangTua::get(),
         ]);
 })->middleware('auth')->name('manage');
+
+Route::resource('/orang-tua', OrangTuaController::class)->middleware('auth')->except(['create', 'show', 'edit']);
 
 // Resource Classes, Teachers, dan Students
 Route::resource('classes', ClasController::class)->middleware('auth')->except(['index', 'create', 'show', 'edit']);

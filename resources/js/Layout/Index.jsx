@@ -38,6 +38,11 @@ const Layout = ({ children }) => {
                   Manage
                 </Link>
               </li>
+              <li className="inline">
+                <Link href="/orang-tua" className="text-gray-600 hover:text-gray-900">
+                  Orang Tua
+                </Link>
+              </li>
             </ul>
           </nav>
           <div className="hidden md:block text-right">
@@ -64,6 +69,11 @@ const Layout = ({ children }) => {
                 <li className="inline">
                   <Link href="/manage" className="text-gray-600 hover:text-gray-900">
                     Manage
+                  </Link>
+                </li>
+                <li className="inline">
+                  <Link href="/orang-tua" className="text-gray-600 hover:text-gray-900">
+                    Orang Tua
                   </Link>
                 </li>
                 <li>

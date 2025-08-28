@@ -24,6 +24,7 @@ class StudentController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'class_id' => 'required|exists:clas,id',
+            'parent_id' => 'required|exists:parents,id',
         ]);
 
         $student = Student::findOrFail($id);

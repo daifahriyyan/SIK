@@ -17,7 +17,7 @@ const Modal = ({ show, onClose, title, children }) => {
   );
 };
 
-export function Manage({ classes, teachers, students }) {
+export function Manage({ classes, teachers, students, parents }) {
   const [modal, setModal] = useState('');
   const [editClass, setEditClass] = useState(null);
   const [editTeacher, setEditTeacher] = useState(null);
@@ -35,6 +35,7 @@ export function Manage({ classes, teachers, students }) {
   const studentForm = useForm({
     name: '',
     class_id: '',
+    parent_id: '',
   });
 
   const currentForm = modal === 'class' ? classForm :
@@ -175,7 +176,7 @@ export function Manage({ classes, teachers, students }) {
           </form>
         </Modal>
         {/* Modal untuk tambah siswa */}
-        <Modal show={modal === 'student'} onClose={() => setModal('')} title="Tambah Siswa">
+        <Modal show={modal === 'student'} onClose={() => { setModal(''); setEditStudent(null); }} title={editStudent ? "Edit Siswa" : "Tambah Siswa"}>
           <form onSubmit={handleSubmit}>
             <InputField
               type="text"
@@ -197,7 +198,19 @@ export function Manage({ classes, teachers, students }) {
                 <option key={clas.id} value={clas.id}>{clas.name}</option>
               ))}
             </select>
-            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Simpan</button>
+            <select
+              name="parent_id"
+              id="parent_id"
+              className="w-full mb-4 px-3 py-2 border rounded cursor-pointer"
+              value={studentForm.data.parent_id}
+              onChange={(e) => studentForm.setData('parent_id', e.target.value)}
+            >
+              <option value="">Pilih Orang Tua</option>
+              {parents.map((parent) => (
+                <option key={parent.id} value={parent.id}>{parent.name}</option>
+              ))}
+            </select>
+            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">{editStudent ? "Update" : "Simpan"}</button>
           </form>
         </Modal>
         <div className="p-8 xl:w-xl bg-white rounded-lg shadow-md">
@@ -300,6 +313,7 @@ export function Manage({ classes, teachers, students }) {
                 <th className="py-3 px-6 font-semibold text-gray-700 border-b">No</th>
                 <th className="py-3 px-6 font-semibold text-gray-700 border-b">Nama Siswa</th>
                 <th className="py-3 px-6 font-semibold text-gray-700 border-b">Kelas</th>
+                <th className="py-3 px-6 font-semibold text-gray-700 border-b">Orang Tua</th>
                 <th className="py-3 px-6 font-semibold text-gray-700 border-b">Action</th>
               </tr>
             </thead>
@@ -309,6 +323,7 @@ export function Manage({ classes, teachers, students }) {
                   <td className="py-2 px-6 border-b">{index + 1}</td>
                   <td className="py-2 px-6 border-b">{student.name}</td>
                   <td className="py-2 px-6 border-b">{student.clas ? student.clas.name : 'Tidak ada kelas'}</td>
+                  <td className="py-2 px-6 border-b">{student.orang_tua ? student.orang_tua.name : 'Data Tidak Ada'}</td>
                   <td className="py-2 px-6 border-b">
                     <button onClick={() => {
                       setModal('student');
